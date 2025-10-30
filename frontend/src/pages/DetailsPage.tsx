@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { experienceService } from '../services/api';
 import type { Experience, Slot } from '../types';
 import Loader from '../components/common/Loader';
-import { formatCurrency } from '../utils/helpers';
 
 const DetailsPage = () => {
   const { id } = useParams<{ id: string }>();

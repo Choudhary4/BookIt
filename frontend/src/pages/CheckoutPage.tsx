@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { bookingService, promoService } from '../services/api';
-import type { Experience, Slot, CustomerInfo, Pricing } from '../types';
+import type { Experience, Slot, CustomerInfo } from '../types';
 import { formatCurrency, formatDate } from '../utils/helpers';
 
 const CheckoutPage = () => {
@@ -61,7 +61,7 @@ const CheckoutPage = () => {
     if (!agree) return;
 
     // Validate customer info
-    if (!customerInfo.fullName || !customerInfo.email) {
+    if (!customerInfo.firstName || !customerInfo.lastName || !customerInfo.email) {
       setPromoError('Please fill in all required fields');
       return;
     }
@@ -133,10 +133,15 @@ const CheckoutPage = () => {
     <input
       type="text"
       placeholder="Your name"
-      value={customerInfo.fullName || ''}
-      onChange={(e) =>
-        setCustomerInfo({ ...customerInfo, fullName: e.target.value })
-      }
+      value={`${customerInfo.firstName} ${customerInfo.lastName}`.trim()}
+      onChange={(e) => {
+        const [first, ...last] = e.target.value.split(' ');
+        setCustomerInfo({
+          ...customerInfo,
+          firstName: first || '',
+          lastName: last.join(' ') || '',
+        });
+      }}
       className="w-full rounded-md bg-[#EAEAEA] px-4 py-3 text-gray-700 placeholder-gray-500 focus:outline-none"
     />
   </div>

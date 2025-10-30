@@ -14,8 +14,7 @@ const CheckoutPage = () => {
   };
 
   const [customerInfo, setCustomerInfo] = useState<CustomerInfo>({
-    firstName: '',
-    lastName: '',
+    fullName: '',
     email: '',
   });
 
@@ -61,7 +60,7 @@ const CheckoutPage = () => {
     if (!agree) return;
 
     // Validate customer info
-    if (!customerInfo.firstName || !customerInfo.lastName || !customerInfo.email) {
+    if (!customerInfo.fullName || !customerInfo.email) {
       setPromoError('Please fill in all required fields');
       return;
     }
@@ -133,15 +132,10 @@ const CheckoutPage = () => {
     <input
       type="text"
       placeholder="Your name"
-      value={`${customerInfo.firstName} ${customerInfo.lastName}`.trim()}
-      onChange={(e) => {
-        const [first, ...last] = e.target.value.split(' ');
-        setCustomerInfo({
-          ...customerInfo,
-          firstName: first || '',
-          lastName: last.join(' ') || '',
-        });
-      }}
+      value={customerInfo.fullName}
+      onChange={(e) =>
+        setCustomerInfo({ ...customerInfo, fullName: e.target.value })
+      }
       className="w-full rounded-md bg-[#EAEAEA] px-4 py-3 text-gray-700 placeholder-gray-500 focus:outline-none"
     />
   </div>

@@ -30,8 +30,7 @@ export interface Slot {
 }
 
 export interface CustomerInfo {
-  firstName: string;
-  lastName: string;
+  fullName: string;
   email: string;
   phone?: string;
 }
